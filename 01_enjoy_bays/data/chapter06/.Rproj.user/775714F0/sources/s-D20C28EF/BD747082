@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534494055093.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BD747082",
+    "lastKnownWriteTime" : 1517772015,
+    "last_content_update" : 1517772015,
+    "path" : "~/Desktop/chapter06坂本/models/model_1.stan",
+    "project_path" : "models/model_1.stan",
+    "properties" : {
+        "cursorPosition" : "12,47",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "stan"
+}

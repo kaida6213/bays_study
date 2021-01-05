@@ -1,0 +1,32 @@
+# Model 5: logistic (instead of linear) regression
+model{
+	for (i in 1:nPeople){
+		z[i] ~ dbern(omega)
+		alphTmp[i] ~ dnegbin(theta,1)
+		alpha[i] <- alphTmp[i]+1 
+		pTmp[i] ~ dinterval(alpha[i],b)
+		pp[i] <- max(equals(z[i],0)*pTmp[i]+equals(z[i],1)*4,1)
+		qq[i] <- min(pp[i],4)*18 + max(pp[i]-4,0)*25
+		y[i] ~ dbin(psi[pp[i]],qq[i])
+	}
+	#prior
+	for (k in 1:14){
+		logit(psi[k]) <-  beta1 * k + beta0
+	}
+	theta ~ dunif(0,1) 
+	omega ~ dunif(0,1) 
+	# Cauchy prior with location 0 and scale 1 (http://bit.ly/2bkNKI2)
+	beta1 ~ dt(0, 1, 1) 
+	beta0 ~ dt(0, 1, 1)
+	# posterior predictive
+	predz ~ dbern(omega)
+	predalphTmp ~ dnegbin(theta,1)
+	predalpha <- predalphTmp + 1
+	predp <- equals(predz,0)*min(predalpha,14) + equals(predz,1)*4
+	predq <- min(predp,4)*18 + max(predp-4,0)*25
+	predy ~ dbin(psi[predp],predq)
+	## log likelihood
+	#for (i in 1:nPeople) {
+  	#  log_lik[i] <- log(dbin(y[i],psi[pp[i]],qq[i]))
+ 	#}
+}

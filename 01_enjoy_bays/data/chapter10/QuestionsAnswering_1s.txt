@@ -1,0 +1,23 @@
+model{
+	for (i in 1:nPeople){
+		alphTmp[i] ~ dnegbin(theta,1)
+		alpha[i] <- alphTmp[i]+1 
+		pp[i] ~ dinterval(alpha[i],b)
+		qq[i] <- min(pp[i],4)*18 + max(pp[i]-4,0)*25
+		y[i] ~ dbin(psi,qq[i])
+	}
+	#prior
+	theta ~ dunif(0,1) 
+	psi ~ dunif(0,1) 
+	omega ~ dunif(0,1) 
+	# posterior predictive
+	predalphTmp ~ dnegbin(theta,1)
+	predalpha <- predalphTmp + 1
+	predp <- min(predalpha,14)
+	predq <- min(predp,4)*18 + max(predp-4,0)*25
+	predy ~ dbin(psi,predq)
+	## log likelihood
+	#for (i in 1:nPeople) {
+  	#  log_lik[i] <- log(dbin(y[i],psi,qq[i]))
+  	#}
+}

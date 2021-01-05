@@ -1,0 +1,6 @@
+#####Title: 1HTM
+Target  hit    r
+Target    hit    (1-r)*g
+Target    miss   (1-r)*(1-g)
+Lure      fa     g
+Lure      cr     1*(1-g)
